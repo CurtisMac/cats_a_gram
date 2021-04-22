@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useReducer } from "react";
 import Header from "./components/Header";
 import { Switch, Route } from "react-router-dom";
 import { Container } from "@material-ui/core";
@@ -7,7 +7,17 @@ import { Container } from "@material-ui/core";
 import Home from "./views/Home";
 import Upload from "./views/Upload";
 
+//utils
+import reducer from "./utils/imagesReducer";
+import loadImages from "./utils/loadImages";
+
+const initialState = [];
+
 function App() {
+    const [images, dispatch] = useReducer(reducer, initialState);
+    useEffect(() => {
+        loadImages(dispatch);
+    }, []);
     return (
         <React.Fragment>
             <Header />
@@ -17,7 +27,7 @@ function App() {
                         <Upload />
                     </Route>
                     <Route path="/">
-                        <Home />
+                        <Home images={images} dispatch={dispatch} />
                     </Route>
                 </Switch>
             </Container>
