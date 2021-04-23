@@ -2,7 +2,7 @@ import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 
 //components
-import Card from "../components/home/Card";
+import ImageCard from "../components/home/ImageCard";
 
 //styles
 const useStyles = makeStyles((theme) => ({
@@ -27,7 +27,7 @@ function Home({ images, dispatch }) {
     return (
         <div className={classes.grid}>
             {images.map((img) => (
-                <Card key={img.id} dispatch={dispatch} img={img} />
+                <ImageCard key={img.id} dispatch={dispatch} img={img} />
             ))}
         </div>
     );
