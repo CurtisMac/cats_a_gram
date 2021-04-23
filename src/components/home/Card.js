@@ -8,6 +8,7 @@ import ImageCardActions from "./ImageCardActions";
 //styles
 const useStyles = makeStyles((theme) => ({
     root: {
+        position: "relative",
     },
     landscape: {
         gridColumn: "span 2",
@@ -22,19 +23,18 @@ const useStyles = makeStyles((theme) => ({
         gridRow: "span 1",
     },
     img: {
-        height: "calc(100% - 50px)",
-        width: "100%"
-    }
+        height: "100%",
+        width: "100%",
+    },
 }));
 
 function ImageCard({ img, dispatch }) {
     const classes = useStyles();
-    console.log(img);
     const { height, width, url } = img;
     const shape =
         width > height ? "landscape" : height > width ? "portrait" : "square";
     return (
-        <Card className={`${classes[shape]}`}>
+        <Card className={`${classes.root} ${classes[shape]}`}>
             <CardMedia
                 className={classes.img}
                 component="img"
