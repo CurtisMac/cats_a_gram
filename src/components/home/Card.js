@@ -1,7 +1,9 @@
 import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
-import { Card, CardMedia, CardActions, IconButton } from "@material-ui/core";
-import FavoriteIcon from "@material-ui/icons/Favorite";
+import { Card, CardMedia } from "@material-ui/core";
+
+//components
+import ImageCardActions from "./ImageCardActions";
 
 //styles
 const useStyles = makeStyles((theme) => ({
@@ -40,11 +42,7 @@ function ImageCard({ img, dispatch }) {
                 src={url}
                 title="A Cat"
             />
-            <div>
-                <IconButton aria-label="add to favorites">
-                    <FavoriteIcon />
-                </IconButton>
-            </div>
+            <ImageCardActions img={img} dispatch={dispatch} />
         </Card>
     );
 }
