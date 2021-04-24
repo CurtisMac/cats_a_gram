@@ -36,7 +36,7 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-function ImageCard({ img, dispatch }) {
+function ImageCard({ img, dispatch, setAlert }) {
     const classes = useStyles();
     const { height, width, url } = img;
     const shape =
@@ -50,7 +50,11 @@ function ImageCard({ img, dispatch }) {
                 src={url}
                 title="A Cat"
             />
-            <ImageCardActions img={img} dispatch={dispatch} />
+            <ImageCardActions
+                img={img}
+                dispatch={dispatch}
+                setAlert={setAlert}
+            />
         </Card>
     );
 }

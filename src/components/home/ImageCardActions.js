@@ -3,10 +3,15 @@ import { makeStyles } from "@material-ui/core/styles";
 import { IconButton } from "@material-ui/core";
 
 //icons
-import FavoriteBorderOutlinedIcon from "@material-ui/icons/FavoriteBorderOutlined";
+import FavoriteBorderIcon from "@material-ui/icons/FavoriteBorderOutlined";
+import FavoriteIcon from "@material-ui/icons/Favorite";
 import DeleteOutlinedIcon from "@material-ui/icons/DeleteOutlined";
 import ThumbUpAltOutlinedIcon from "@material-ui/icons/ThumbUpAltOutlined";
 import ThumbDownAltOutlinedIcon from "@material-ui/icons/ThumbDownAltOutlined";
+
+//utils
+import saveFavourite from "../../adaptors/saveFavourite";
+import deleteFavourite from "../../adaptors/deleteFavourite";
 
 //styles
 const useStyles = makeStyles((theme) => ({
@@ -23,8 +28,31 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-function ImageCardActions({ img, dispatch }) {
+function ImageCardActions({ img, dispatch, setAlert }) {
+    const isFavourite = img.favourite;
     const classes = useStyles();
+
+    const toggleFavourite = async () => {
+        try {
+            const payload = { img: img.id, favId: null };
+            if (!isFavourite) {
+                const resp = await saveFavourite(img.id);
+                payload.favId = resp.id;
+            } else if (isFavourite) {
+                await deleteFavourite(img.favourite);
+            }
+            dispatch({
+                type: "toggleFavourite",
+                payload,
+            });
+        } catch {
+            setAlert({
+                msg: "Network Error - couldn't save favourite, please try again",
+                type: "error",
+            });
+        }
+    };
+
     return (
         <>
             <div className={classes.root}>
@@ -41,8 +69,18 @@ function ImageCardActions({ img, dispatch }) {
                     <IconButton color="inherit" aria-label="delete">
                         <DeleteOutlinedIcon />
                     </IconButton>
-                    <IconButton color="secondary" aria-label="add to favorites">
-                        <FavoriteBorderOutlinedIcon />
+                    <IconButton
+                        color="secondary"
+                        onClick={toggleFavourite}
+                        aria-label={
+                            isFavourite ? "add to favorites" : "remove favorite"
+                        }
+                    >
+                        {isFavourite ? (
+                            <FavoriteIcon />
+                        ) : (
+                            <FavoriteBorderIcon />
+                        )}
                     </IconButton>
                 </div>
             </div>

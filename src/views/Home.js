@@ -22,12 +22,17 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-function Home({ images, dispatch }) {
+function Home({ images, dispatch, setAlert }) {
     const classes = useStyles();
     return (
         <div className={classes.grid}>
             {images.map((img) => (
-                <ImageCard key={img.id} dispatch={dispatch} img={img} />
+                <ImageCard
+                    key={img.id}
+                    dispatch={dispatch}
+                    img={img}
+                    setAlert={setAlert}
+                />
             ))}
         </div>
     );

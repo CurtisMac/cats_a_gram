@@ -19,9 +19,9 @@ function App() {
     const [alert, setAlert] = useState({ msg: "", type: "" });
 
     useEffect(() => {
-        loadImages(dispatch).catch(err => {
+        loadImages(dispatch).catch((err) => {
             console.error(err);
-            setAlert({msg: "Couldn't Fetch Images", type: "error"})
+            setAlert({ msg: "Couldn't Fetch Images", type: "error" });
         });
     }, []);
 
@@ -34,11 +34,15 @@ function App() {
                         <Upload />
                     </Route>
                     <Route path="/">
-                        <Home images={images} dispatch={dispatch} />
+                        <Home
+                            images={images}
+                            dispatch={dispatch}
+                            setAlert={setAlert}
+                        />
                     </Route>
                 </Switch>
             </Container>
-             <Alert msg={alert.msg} type={alert.type} setAlert={setAlert} />
+            <Alert msg={alert.msg} type={alert.type} setAlert={setAlert} />
         </React.Fragment>
     );
 }
