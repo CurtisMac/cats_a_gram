@@ -12,6 +12,7 @@ import ThumbDownAltOutlinedIcon from "@material-ui/icons/ThumbDownAltOutlined";
 //utils
 import saveFavourite from "../../adaptors/saveFavourite";
 import deleteFavourite from "../../adaptors/deleteFavourite";
+import deleteImg from "../../adaptors/deleteImg";
 
 //styles
 const useStyles = makeStyles((theme) => ({
@@ -53,6 +54,17 @@ function ImageCardActions({ img, dispatch, setAlert }) {
         }
     };
 
+
+    const onDelete = () => {
+        try {
+            deleteImg(img.id);
+            dispatch({ type: "delete", payload: { img: img.id } });
+        }
+        catch (err){
+            console.error(err);
+        }
+    };
+
     return (
         <>
             <div className={classes.root}>
@@ -66,9 +78,6 @@ function ImageCardActions({ img, dispatch, setAlert }) {
                     </IconButton>
                 </div>
                 <div>
-                    <IconButton color="inherit" aria-label="delete">
-                        <DeleteOutlinedIcon />
-                    </IconButton>
                     <IconButton
                         color="secondary"
                         onClick={toggleFavourite}
@@ -81,6 +90,13 @@ function ImageCardActions({ img, dispatch, setAlert }) {
                         ) : (
                             <FavoriteBorderIcon />
                         )}
+                    </IconButton>
+                    <IconButton
+                        color="inherit"
+                        aria-label="delete"
+                        onClick={onDelete}
+                    >
+                        <DeleteOutlinedIcon />
                     </IconButton>
                 </div>
             </div>
