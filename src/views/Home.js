@@ -11,7 +11,7 @@ const useStyles = makeStyles((theme) => ({
         gridTemplateColumns: "1fr",
         gridAutoFlow: "dense",
         gap: "10px 0",
-        [theme.breakpoints.up("md")]: {
+        [theme.breakpoints.up("sm")]: {
             gridTemplateColumns: "repeat(2, 1fr)",
             gap: "10px",
         },

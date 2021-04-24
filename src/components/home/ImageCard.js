@@ -11,12 +11,20 @@ const useStyles = makeStyles((theme) => ({
         position: "relative",
     },
     landscape: {
-        gridColumn: "span 2",
+        gridColumn: "span 1",
         gridRow: "span 1",
+        [theme.breakpoints.up("sm")]: {
+            gridColumn: "span 2",
+            gridRow: "span 1",
+        },
     },
     portrait: {
         gridColumn: "span 1",
-        gridRow: "span 2",
+        gridRow: "span 1",
+        [theme.breakpoints.up("sm")]: {
+            gridColumn: "span 1",
+            gridRow: "span 2",
+        },
     },
     square: {
         gridColumn: "span 1",
