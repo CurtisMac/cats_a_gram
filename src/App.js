@@ -1,4 +1,4 @@
-import React, { useEffect, useReducer } from "react";
+import React, { useEffect, useReducer, useState } from "react";
 import Header from "./components/Header";
 import { Switch, Route } from "react-router-dom";
 import { Container } from "@material-ui/core";
@@ -6,6 +6,7 @@ import { Container } from "@material-ui/core";
 //components
 import Home from "./views/Home";
 import Upload from "./views/Upload";
+import Alert from "./components/Alert";
 
 //utils
 import reducer from "./utils/imagesReducer";
@@ -15,6 +16,8 @@ const initialState = [];
 
 function App() {
     const [images, dispatch] = useReducer(reducer, initialState);
+    const [alert, setAlert] = useState({ msg: "", type: "" });
+
     useEffect(() => {
         loadImages(dispatch);
     }, []);
@@ -31,6 +34,7 @@ function App() {
                     </Route>
                 </Switch>
             </Container>
+             <Alert msg={alert.msg} type={alert.type} setAlert={setAlert} />
         </React.Fragment>
     );
 }
