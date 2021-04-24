@@ -31,7 +31,7 @@ const useStyles = makeStyles((theme) => ({
         gridRow: "span 1",
     },
     img: {
-        height: "100%",
+        height: "calc(100% - 12px)",
         width: "100%",
     },
 }));
