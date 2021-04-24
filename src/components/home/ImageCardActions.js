@@ -58,9 +58,8 @@ function ImageCardActions({ img, dispatch, setAlert }) {
     const onDelete = () => {
         try {
             deleteImg(img.id);
-            dispatch({ type: "delete", payload: { img: img.id } });
-        }
-        catch (err){
+            dispatch({ type: "delete", payload: img.id });
+        } catch (err) {
             console.error(err);
         }
     };

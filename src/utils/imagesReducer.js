@@ -5,15 +5,12 @@ function reducer(state, action) {
         return action.payload;
     }
     if (action.type === "delete") {
-        const { img } = action.payload;
-        const i = state.findIndex((obj) => obj.id === img);
-        return update(state, {$splice: [[i, 1]] });
+        return update(state, {$unset: [action.payload] });
     }
     if (action.type === "toggleFavourite") {
         const { img, favId } = action.payload;
-        const i = state.findIndex((obj) => obj.id === img);
         return update(state, {
-            [i]: { $merge: { favourite: favId } },
+            [img]: { $merge: { favourite: favId } },
         });
     }
 }

@@ -24,18 +24,19 @@ const useStyles = makeStyles((theme) => ({
 
 function Home({ images, dispatch, setAlert }) {
     const classes = useStyles();
-    return (
-        <div className={classes.grid}>
-            {images.map((img) => (
-                <ImageCard
-                    key={img.id}
-                    dispatch={dispatch}
-                    img={img}
-                    setAlert={setAlert}
-                />
-            ))}
-        </div>
-    );
+    const cards = [];
+    for (const key in images) {
+        const img = images[key];
+        cards.push(
+            <ImageCard
+                key={img.id}
+                dispatch={dispatch}
+                img={img}
+                setAlert={setAlert}
+            />
+        );
+    }
+    return <div className={classes.grid}>{cards}</div>;
 }
 
 export default Home;
