@@ -1,12 +1,8 @@
 import getImages from "../adaptors/getImages";
 
 async function loadImages(dispatch) {
-    try {
-        const payload = await getImages();
-        dispatch({ type: "set", payload });
-    } catch (e) {
-        dispatch({ type: "error" });
-    }
+    const payload = await getImages();
+    dispatch({ type: "set", payload });
 }
 
 export default loadImages;

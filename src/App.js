@@ -19,8 +19,12 @@ function App() {
     const [alert, setAlert] = useState({ msg: "", type: "" });
 
     useEffect(() => {
-        loadImages(dispatch);
+        loadImages(dispatch).catch(err => {
+            console.error(err);
+            setAlert({msg: "Couldn't Fetch Images", type: "error"})
+        });
     }, []);
+
     return (
         <React.Fragment>
             <Header />
