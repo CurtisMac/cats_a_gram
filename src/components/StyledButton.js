@@ -5,6 +5,7 @@ import Button from "@material-ui/core/Button";
 const useStyles = makeStyles({
     root: {
         borderRadius: 0,
+        width: "90px",
     }
 })
 

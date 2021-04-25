@@ -30,16 +30,16 @@ function Header({ location }) {
         <StyledHeader>
             <Content>
                 <Logo />
-                {path !== "/upload" && (
+                {
                     <StyledButton
                         color="primary"
                         variant="contained"
                         component={Link}
-                        to="/upload"
+                        to={path === "/" ? "/upload" : "/"}
                     >
-                        Upload
+                        {path === "/" ? "Upload" : "Home"}
                     </StyledButton>
-                )}
+                }
             </Content>
         </StyledHeader>
     );
