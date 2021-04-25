@@ -8,7 +8,7 @@ import Progress from '../components/upload/Progress';
 //utils
 import uploadImage from "../adaptors/uploadImg";
 
-function Upload() {
+function Upload({reloadData}) {
     const [loading, setLoading] = useState(false);
     const [success, setSuccess] = useState(false);
     const [progress, setProgress] = useState(0);
@@ -22,6 +22,7 @@ function Upload() {
                 const formdata = new FormData();
                 formdata.append("file", file, "file");
                 await uploadImage(formdata, setProgress);
+                await reloadData();
                 setLoading(false);
                 setSuccess(true);
             } catch (err) {

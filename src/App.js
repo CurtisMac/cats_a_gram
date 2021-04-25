@@ -49,7 +49,7 @@ function App() {
             <Container maxWidth="md" className={classes.container}>
                 <Switch>
                     <Route path="/upload">
-                        <Upload />
+                        <Upload reloadData={reloadData} />
                     </Route>
                     <Route path="/">
                         <Home
