@@ -13,6 +13,7 @@ import ThumbDownAltOutlinedIcon from "@material-ui/icons/ThumbDownAltOutlined";
 import saveFavourite from "../../adaptors/saveFavourite";
 import deleteFavourite from "../../adaptors/deleteFavourite";
 import deleteImg from "../../adaptors/deleteImg";
+import vote from "../../adaptors/vote";
 
 //styles
 const useStyles = makeStyles((theme) => ({
@@ -48,12 +49,27 @@ function ImageCardActions({ img, dispatch, setAlert }) {
             });
         } catch {
             setAlert({
-                msg: "Network Error - couldn't save favourite, please try again",
+                msg:
+                    "Network Error - couldn't save favourite, please try again",
                 type: "error",
             });
         }
     };
 
+    const onVote = async (dir) => {
+        try {
+            await vote(dir, img.id);
+            dispatch({
+                type: "vote",
+                payload: { dir, img: img.id },
+            });
+        } catch (err) {
+            setAlert({
+                msg: "Network Error - couldn't save vote, please try again",
+                type: "error",
+            });
+        }
+    };
 
     const onDelete = () => {
         try {
@@ -68,11 +84,23 @@ function ImageCardActions({ img, dispatch, setAlert }) {
         <>
             <div className={classes.root}>
                 <div>
-                    <IconButton color="inherit" aria-label="downvote">
+                    <IconButton
+                        color="inherit"
+                        aria-label="upvote"
+                        onClick={() => {
+                            onVote("up");
+                        }}
+                    >
                         <ThumbUpAltOutlinedIcon />
                     </IconButton>
-                    <span>13</span>
-                    <IconButton color="inherit" aria-label="upvote">
+                    <span>{img.upvotes - img.downvotes}</span>
+                    <IconButton
+                        color="inherit"
+                        aria-label="downvote"
+                        onClick={() => {
+                            onVote("down");
+                        }}
+                    >
                         <ThumbDownAltOutlinedIcon />
                     </IconButton>
                 </div>
