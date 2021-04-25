@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import { IconButton } from "@material-ui/core";
 
@@ -32,11 +32,13 @@ const useStyles = makeStyles((theme) => ({
 
 function ImageCardActions({ img, dispatch, setAlert }) {
     const isFavourite = img.favourite;
+    const [loading, setLoading] = useState(false);
     const classes = useStyles();
 
     const toggleFavourite = async () => {
         try {
             const payload = { img: img.id, favId: null };
+            setLoading(true);
             if (!isFavourite) {
                 const resp = await saveFavourite(img.id);
                 payload.favId = resp.id;
@@ -53,6 +55,9 @@ function ImageCardActions({ img, dispatch, setAlert }) {
                     "Network Error - couldn't save favourite, please try again",
                 type: "error",
             });
+        }
+        finally {
+            setLoading(false);
         }
     };
 
@@ -108,6 +113,7 @@ function ImageCardActions({ img, dispatch, setAlert }) {
                     <IconButton
                         color="secondary"
                         onClick={toggleFavourite}
+                        disabled={loading}
                         aria-label={
                             isFavourite ? "add to favorites" : "remove favorite"
                         }
