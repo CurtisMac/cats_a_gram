@@ -3,6 +3,7 @@ import { makeStyles } from "@material-ui/core/styles";
 
 //components
 import ImageCard from "../components/home/ImageCard";
+import Placeholder from "../components/home/Placeholder";
 
 //styles
 const useStyles = makeStyles((theme) => ({
@@ -36,7 +37,15 @@ function Home({ images, dispatch, setAlert }) {
             />
         );
     }
-    return <div className={classes.grid}>{cards}</div>;
+    return (
+        <>
+            {cards.length ? (
+                <div className={classes.grid}>{cards}</div>
+            ) : (
+                <Placeholder />
+            )}
+        </>
+    );
 }
 
 export default Home;
