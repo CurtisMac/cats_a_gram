@@ -1,9 +1,13 @@
 import React, { useEffect, useReducer, useState } from "react";
-import Header from "./components/Header";
 import { makeStyles } from "@material-ui/core/styles";
 import { Switch, Route } from "react-router-dom";
+import CssBaseline from "@material-ui/core/CssBaseline";
+import { ThemeProvider } from "@material-ui/core/styles";
+import theme from "./styles/Theme";
+import { BrowserRouter as Router } from "react-router-dom";
 
 //components
+import Header from "./components/Header";
 import { Container } from "@material-ui/core";
 import Home from "./views/Home";
 import Upload from "./views/Upload";
@@ -44,22 +48,34 @@ function App() {
 
     return (
         <React.Fragment>
-            <Header />
-            <Container maxWidth="md" className={classes.container}>
-                <Switch>
-                    <Route path="/upload">
-                        <Upload setAlert={setAlert} dispatch={dispatch} />
-                    </Route>
-                    <Route path="/">
-                        <Home
-                            images={images}
-                            dispatch={dispatch}
-                            setAlert={setAlert}
-                        />
-                    </Route>
-                </Switch>
-            </Container>
-            <Alert msg={alert.msg} type={alert.type} setAlert={setAlert} />
+            <CssBaseline />
+            <ThemeProvider theme={theme}>
+                <Router>
+                    <Header />
+                    <Container maxWidth="md" className={classes.container}>
+                        <Switch>
+                            <Route path="/upload">
+                                <Upload
+                                    setAlert={setAlert}
+                                    dispatch={dispatch}
+                                />
+                            </Route>
+                            <Route path="/">
+                                <Home
+                                    images={images}
+                                    dispatch={dispatch}
+                                    setAlert={setAlert}
+                                />
+                            </Route>
+                        </Switch>
+                    </Container>
+                    <Alert
+                        msg={alert.msg}
+                        type={alert.type}
+                        setAlert={setAlert}
+                    />
+                </Router>
+            </ThemeProvider>
         </React.Fragment>
     );
 }
