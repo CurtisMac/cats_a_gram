@@ -1,15 +1,19 @@
 import React, { useState, useEffect } from "react";
-import uploadImage from "../adaptors/uploadImg";
 import { Redirect } from "react-router-dom";
 
 //components
 import FileSelector from "../components/upload/FileSelector";
+import Progress from '../components/upload/Progress';
+
+//utils
+import uploadImage from "../adaptors/uploadImg";
 
 function Upload() {
     const [loading, setLoading] = useState(false);
     const [success, setSuccess] = useState(false);
-    const [error, setError] = useState(null);
+    const [progress, setProgress] = useState(0);
     const [file, setFile] = useState(null);
+    const [error, setError] = useState(null);
 
     useEffect(() => {
         async function uploadFile() {
@@ -17,7 +21,7 @@ function Upload() {
                 setLoading(true);
                 const formdata = new FormData();
                 formdata.append("file", file, "file");
-                await uploadImage(formdata);
+                await uploadImage(formdata, setProgress);
                 setLoading(false);
                 setSuccess(true);
             } catch (err) {
@@ -28,19 +32,14 @@ function Upload() {
         if (file) uploadFile();
     }, [file]);
 
-
     return (
         <>
             {!loading && <FileSelector setFile={setFile} />}
-            {loading && <Loading />}
+            {loading && <Progress progress={progress} />}
             {success && <Redirect to="/" />}
             {/* TODO: need error component */}
         </>
     );
-}
-
-function Loading() {
-    return <div>Loading</div>;
 }
 
 export default Upload;
