@@ -55,8 +55,7 @@ function ImageCardActions({ img, dispatch, setAlert }) {
                     "Network Error - couldn't save favourite, please try again",
                 type: "error",
             });
-        }
-        finally {
+        } finally {
             setLoading(false);
         }
     };
@@ -78,7 +77,7 @@ function ImageCardActions({ img, dispatch, setAlert }) {
 
     const onDelete = () => {
         try {
-            deleteImg(img.id);
+            deleteImg(img);
             dispatch({ type: "delete", payload: img.id });
         } catch (err) {
             console.error(err);
