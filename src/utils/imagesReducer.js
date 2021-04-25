@@ -4,6 +4,16 @@ function reducer(state, action) {
     if (action.type === "set") {
         return action.payload;
     }
+    if (action.type === "add") {
+        const newImg = Object.assign(
+            action.payload,
+            { voteIds: [] },
+            { upvotes: 0 },
+            { downvotes: 0 },
+            { favourite: null }
+        );
+        return update(state, { [newImg.id]: { $set: newImg } });
+    }
     if (action.type === "delete") {
         return update(state, { $unset: [action.payload] });
     }
