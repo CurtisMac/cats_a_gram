@@ -14,7 +14,7 @@ const uploadImg = async (data, setProgress) => {
             );
         },
     });
-    return response;
+    return response.data;
 };
 
 export default uploadImg;
