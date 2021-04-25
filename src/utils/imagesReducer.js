@@ -1,12 +1,12 @@
 import update from "immutability-helper";
 
-function reducer(state, action) {
-    if (action.type === "set") {
-        return action.payload;
+function reducer(state, { type, payload }) {
+    if (type === "set") {
+        return payload;
     }
-    if (action.type === "add") {
+    if (type === "add") {
         const newImg = Object.assign(
-            action.payload,
+            payload,
             { voteIds: [] },
             { upvotes: 0 },
             { downvotes: 0 },
@@ -14,17 +14,17 @@ function reducer(state, action) {
         );
         return update(state, { [newImg.id]: { $set: newImg } });
     }
-    if (action.type === "delete") {
-        return update(state, { $unset: [action.payload] });
+    if (type === "delete") {
+        return update(state, { $unset: [payload] });
     }
-    if (action.type === "toggleFavourite") {
-        const { img, favId } = action.payload;
+    if (type === "toggleFavourite") {
+        const { img, favId } = payload;
         return update(state, {
             [img]: { $merge: { favourite: favId } },
         });
     }
-    if (action.type === "vote") {
-        const { img, dir } = action.payload;
+    if (type === "vote") {
+        const { img, dir } = payload;
         const prop = `${dir}votes`;
         return update(state, {
             [img]: { [prop]: { $set: state[img][prop] + 1 } },
