@@ -17,7 +17,6 @@ const useStyles = makeStyles((theme) => ({
         },
         [theme.breakpoints.up("lg")]: {
             gridTemplateColumns: "repeat(4, 1fr)",
-            // gridAutoRows: "minmax(30vh, 30vh)",
             gap: "10px",
         },
     },
