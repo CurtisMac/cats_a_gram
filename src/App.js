@@ -11,7 +11,7 @@ import Alert from "./components/Alert";
 
 //utils
 import reducer from "./utils/imagesReducer";
-import loadImages from "./utils/loadImages";
+import fetchImagesData from "./utils/fetchImagesData";
 
 //styles
 const useStyles = makeStyles((theme) => ({
@@ -33,11 +33,15 @@ function App() {
     const [alert, setAlert] = useState({ msg: "", type: "" });
 
     useEffect(() => {
-        loadImages(dispatch).catch((err) => {
-            console.error(err);
+        reloadData();
+    }, []);
+
+    const reloadData = async () => {
+        const payload = await fetchImagesData().catch(() => {
             setAlert({ msg: "Couldn't Fetch Images", type: "error" });
         });
-    }, []);
+        dispatch({ type: "set", payload });
+    };
 
     return (
         <React.Fragment>
