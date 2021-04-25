@@ -2,7 +2,7 @@ import getImages from "../adaptors/getImages";
 import getVotes from "../adaptors/getVotes";
 import getFavourites from "../adaptors/getFavourites";
 
-async function loadImageData(dispatch) {
+async function loadImageData() {
     const [images, votes, favourites] = await Promise.all([
         getImages(),
         getVotes(),
@@ -11,7 +11,7 @@ async function loadImageData(dispatch) {
     const payload = _getHash(images);
     _addVotes(payload, votes);
     _addFavourites(payload, favourites);
-    dispatch({ type: "set", payload });
+    return payload;
 }
 
 function _getHash(array) {
