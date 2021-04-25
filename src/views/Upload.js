@@ -22,23 +22,40 @@ function Upload({ setAlert, dispatch }) {
                 const formdata = new FormData();
                 formdata.append("file", file, "file");
                 const newImage = await uploadImage(formdata, setProgress);
-                dispatch({type: "add", payload: newImage})
+                dispatch({ type: "add", payload: newImage });
                 setSuccess(true);
                 setLoading(false);
             } catch (err) {
-                console.log(err);
-                setError(err);
+                let alert = {
+                    msg: "Couldn't upload image, please try again",
+                    type: "error",
+                };
+                if (
+                    err.response.data.message.match(/correct animal not found/i)
+                ) {
+                    alert = {
+                        msg: "Oops! Couldn't upload that, only cats allowed!",
+                        type: "warning",
+                    };
+                }
+                setLoading(false);
+                setError(alert);
             }
         }
         if (file) uploadFile();
     }, [file, dispatch]);
+
+    useEffect(() => {
+        if (error) {
+            setAlert(error);
+        }
+    }, [error, setAlert]);
 
     return (
         <>
             {!loading && <FileSelector setFile={setFile} />}
             {loading && <Progress progress={progress} />}
             {success && <Redirect to="/" />}
-            {/* TODO: need error component */}
         </>
     );
 }
