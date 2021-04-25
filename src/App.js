@@ -49,7 +49,7 @@ function App() {
             <Container maxWidth="md" className={classes.container}>
                 <Switch>
                     <Route path="/upload">
-                        <Upload reloadData={reloadData} />
+                        <Upload setAlert={setAlert} dispatch={dispatch} />
                     </Route>
                     <Route path="/">
                         <Home

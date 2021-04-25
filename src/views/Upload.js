@@ -3,12 +3,12 @@ import { Redirect } from "react-router-dom";
 
 //components
 import FileSelector from "../components/upload/FileSelector";
-import Progress from '../components/upload/Progress';
+import Progress from "../components/upload/Progress";
 
 //utils
 import uploadImage from "../adaptors/uploadImg";
 
-function Upload({reloadData}) {
+function Upload({ setAlert, dispatch }) {
     const [loading, setLoading] = useState(false);
     const [success, setSuccess] = useState(false);
     const [progress, setProgress] = useState(0);
@@ -21,17 +21,17 @@ function Upload({reloadData}) {
                 setLoading(true);
                 const formdata = new FormData();
                 formdata.append("file", file, "file");
-                await uploadImage(formdata, setProgress);
-                await reloadData();
-                setLoading(false);
+                const newImage = await uploadImage(formdata, setProgress);
+                dispatch({type: "add", payload: newImage})
                 setSuccess(true);
+                setLoading(false);
             } catch (err) {
                 console.log(err);
                 setError(err);
             }
         }
         if (file) uploadFile();
-    }, [file]);
+    }, [file, dispatch]);
 
     return (
         <>
