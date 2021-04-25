@@ -15,7 +15,7 @@ const useStyles = makeStyles((theme) => ({
         gridRow: "span 1",
         [theme.breakpoints.up("sm")]: {
             gridColumn: "span 2",
-            gridRow: "span 1",
+            // gridRow: "span 1",
         },
     },
     portrait: {
@@ -23,12 +23,12 @@ const useStyles = makeStyles((theme) => ({
         gridRow: "span 1",
         [theme.breakpoints.up("sm")]: {
             gridColumn: "span 1",
-            gridRow: "span 2",
+            // gridRow: "span 2",
         },
     },
     square: {
         gridColumn: "span 1",
-        gridRow: "span 1",
+        // gridRow: "span 1",
     },
     img: {
         height: "calc(100% - 12px)",
