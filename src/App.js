@@ -33,15 +33,14 @@ function App() {
     const [alert, setAlert] = useState({ msg: "", type: "" });
 
     useEffect(() => {
-        reloadData();
+        async function loadImageData() {
+            const payload = await fetchImagesData().catch(() => {
+                setAlert({ msg: "Couldn't Fetch Images", type: "error" });
+            });
+            dispatch({ type: "set", payload });
+        }
+        loadImageData();
     }, []);
-
-    const reloadData = async () => {
-        const payload = await fetchImagesData().catch(() => {
-            setAlert({ msg: "Couldn't Fetch Images", type: "error" });
-        });
-        dispatch({ type: "set", payload });
-    };
 
     return (
         <React.Fragment>
