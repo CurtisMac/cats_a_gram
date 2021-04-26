@@ -34,7 +34,7 @@ const initialState = [];
 function App() {
     const classes = useStyles();
     const [images, dispatch] = useReducer(reducer, initialState);
-    const [alert, setAlert] = useState({ msg: "", type: "" });
+    const [alert, setAlert] = useState({ msg: "", type: "error" });
 
     useEffect(() => {
         async function loadImageData() {

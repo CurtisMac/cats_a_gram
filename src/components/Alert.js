@@ -5,7 +5,7 @@ import MuiAlert from "@material-ui/lab/Alert";
 
 function Alert({ msg, type, setAlert }) {
     const handleClose = () => {
-        setAlert({ msg: "", type: "" });
+        setAlert({ msg: "", type });
     };
     return (
         <div>
@@ -20,7 +20,7 @@ function Alert({ msg, type, setAlert }) {
             >
                 <MuiAlert
                     onClose={handleClose}
-                    severity={type}
+                    severity={type || "info"}
                     elevation={6}
                     variant="filled"
                 >
