@@ -4,6 +4,7 @@ import { Redirect } from "react-router-dom";
 //components
 import FileSelector from "../components/upload/FileSelector";
 import Progress from "../components/upload/Progress";
+import Typography from "@material-ui/core/Typography";
 
 //utils
 import uploadImage from "../adaptors/uploadImg";
@@ -53,6 +54,9 @@ function Upload({ setAlert, dispatch }) {
 
     return (
         <>
+            <Typography variant="subtitle1" color="textPrimary" align="center" component="h1" gutterBottom={true}>
+                Upload some cat photos!
+            </Typography>
             {!loading && <FileSelector setFile={setFile} />}
             {loading && <Progress progress={progress} />}
             {success && <Redirect to="/" />}
